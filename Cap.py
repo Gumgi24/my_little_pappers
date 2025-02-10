@@ -19,7 +19,7 @@ elif menu_choix == "4":
   champ = " "
 
 def recherche_siret(field, query):
-  url = "https://api.insee.fr/api-sirene/3.11/siret?q=" + field + "%3A" + query #49516065700062
+  url = "https://api.insee.fr/api-sirene/3.11/siret?q=" + field + "%3A" + query #49516065700062 = Exemple Lexfo
 
   payload = {}
   headers = {
