@@ -4,8 +4,6 @@ Voici notre projet Python My Little Papers.
 
 # Instructions
 
-=================
-
 L’objectif de ce projet est de créer votre propre outil de collecte d’information sur les entreprises en utilisant [l’API Sirene](https://portail-api.insee.fr/catalog/api/2ba0e549-5587-3ef1-9082-99cd865de66f). Cette API permet de requêter les données du répertoire Sirene des entreprises depuis 1973. Ce répertoire contient les unités légales (SIREN) et les établissements (SIRET).
 
 Pré-requis
