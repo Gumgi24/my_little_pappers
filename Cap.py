@@ -12,11 +12,11 @@ elif menu_choix == "2":
 
 elif menu_choix == "3":
   recherche = input("Entrez une ville: ")
-  champ = " "
+  champ = "libelleCommuneEtablissement"
 
 elif menu_choix == "4":
   recherche = input("Entrez une catégorie: ")
-  champ = " "
+  champ = "categorieEntreprise"
 
 def recherche_siret(field, query):
   url = "https://api.insee.fr/api-sirene/3.11/siret?q=" + field + "%3A" + query #49516065700062 = Exemple Lexfo
