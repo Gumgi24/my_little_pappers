@@ -41,17 +41,17 @@ def construction_query(siret, nom, ville, catégorie):
 
   if nom:
     if query:
-      query += "%2C%20"
+      query += "%20AND%20"
     query += "denominationUniteLegale%3A" + nom
 
   if ville:
     if query:
-      query += "%2C%20"
+      query += "%20AND%20"
     query += "libelleCommuneEtablissement%3A" + ville
 
   if catégorie:
     if query:
-      query += "%2C%20"
+      query += "%20AND%20"
     query += "categorieEntreprise%3A" + catégorie
 
   return query
