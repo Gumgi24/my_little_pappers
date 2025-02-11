@@ -3,23 +3,31 @@ import requests
 menu_choix = input("Choisissez un mode de recherche : \n1. Recherche par SIRET\n2. Recherche par Nom\n 3. Recherche par Ville\n 4. Recherche par Catégorie\n \n Mode de recherche : ")
 
 if menu_choix == "1":
-  recherche = input("Entrez un SIRET: ")
-  champ = "siret"
+  recherche1 = input("Entrez un SIRET: ")
+  champ1 = "siret"
 
 elif menu_choix == "2":
-  recherche = input("Entrez un nom: ")
-  champ = "denominationUniteLegale"
+  recherche2 = input("Entrez un nom: ")
+  champ2 = "denominationUniteLegale"
 
 elif menu_choix == "3":
-  recherche = input("Entrez une ville: ")
-  champ = "libelleCommuneEtablissement"
+  recherche3 = input("Entrez une ville: ")
+  champ3 = "libelleCommuneEtablissement"
 
 elif menu_choix == "4":
-  recherche = input("Entrez une catégorie: ")
-  champ = "categorieEntreprise"
+  recherche4 = input("Entrez une catégorie: ")
+  champ4 = "categorieEntreprise"
 
-def recherche_siret(field, query):
-  url = "https://api.insee.fr/api-sirene/3.11/siret?q=" + field + "%3A" + query #49516065700062 = Exemple Lexfo
+def recherche_siret(field1, query1, field2, query2, field3, query3, field4, query4):
+  url = "https://api.insee.fr/api-sirene/3.11/siret?q=" + field1 + "%3A" + query1 #49516065700062 = Exemple Lexfo
+  
+  if field2:
+    url += "%2C%20" + field2 + "%3A" + query2
+  if field3:
+    url += "%2C%20" + field3 + "%3A" + query3
+  if field4:
+    url += "%2C%20" + field4 + "%3A" + query4
+  
 
   payload = {}
   headers = {
@@ -43,4 +51,4 @@ def recherche_siret(field, query):
     adresse_etablissement["codePostalEtablissement"],
     adresse_etablissement["libelleCommuneEtablissement"])
 
-recherche_siret(champ, recherche)
+recherche_siret(champ1, recherche1, champ2, recherche2, champ3, recherche3, champ4, recherche4)
