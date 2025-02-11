@@ -1,32 +1,65 @@
 import requests
 
-menu_choix = input("Choisissez un mode de recherche : \n1. Recherche par SIRET\n2. Recherche par Nom\n 3. Recherche par Ville\n 4. Recherche par Catégorie\n \n Mode de recherche : ")
+SIRET = ""
+NOM = ""
+VILLE = ""
+CTI = ""
 
-if menu_choix == "1":
-  recherche1 = input("Entrez un SIRET: ")
-  champ1 = "siret"
+while True:
+  print("\n=== Menu de Recherche ===")
+  print("1. Entrer SIRET (actuel : )")
+  print("2. Entrer Nom (actuel : )")
+  print("3. Entrer Ville (actuel : )")
+  print("4. Entrer Catégorie (actuel : )")
+  print("5. Lancer la recherche dans le CYBERESPACE")
 
-elif menu_choix == "2":
-  recherche2 = input("Entrez un nom: ")
-  champ2 = "denominationUniteLegale"
+  menu_choix = input("Entrez votre choix: ")
 
-elif menu_choix == "3":
-  recherche3 = input("Entrez une ville: ")
-  champ3 = "libelleCommuneEtablissement"
+  if menu_choix == "1":
+    SIRET = input("Entrez un SIRET: ")
 
-elif menu_choix == "4":
-  recherche4 = input("Entrez une catégorie: ")
-  champ4 = "categorieEntreprise"
+  elif menu_choix == "2":
+    NOM = input("Entrez un nom: ")
 
-def recherche_siret(field1, query1, field2, query2, field3, query3, field4, query4):
-  url = "https://api.insee.fr/api-sirene/3.11/siret?q=" + field1 + "%3A" + query1 #49516065700062 = Exemple Lexfo
+  elif menu_choix == "3":
+    VILLE = input("Entrez une ville: ")
+
+  elif menu_choix == "4":
+    CTI = input("Entrez une catégorie: ")
   
-  if field2:
-    url += "%2C%20" + field2 + "%3A" + query2
-  if field3:
-    url += "%2C%20" + field3 + "%3A" + query3
-  if field4:
-    url += "%2C%20" + field4 + "%3A" + query4
+  elif menu_choix == "5":
+    break
+
+  else:
+    print("Choix invalide, CONNARD.")
+
+def construction_query(siret, nom, ville, catégorie):
+  query = ""
+  
+  if siret:
+        query += "siret%3A" + siret
+
+  if nom:
+    if query:
+      query += "%2C%20"
+    query += "denominationUniteLegale%3A" + nom
+
+  if ville:
+    if query:
+      query += "%2C%20"
+    query += "libelleCommuneEtablissement%3A" + ville
+
+  if catégorie:
+    if query:
+      query += "%2C%20"
+    query += "categorieEntreprise%3A" + catégorie
+
+  return query
+
+recherche = construction_query(SIRET, NOM, VILLE, CTI)
+
+def recherche_siret(query):
+  url = "https://api.insee.fr/api-sirene/3.11/siret?q=" + query #49516065700062 = Exemple Lexfo
   
 
   payload = {}
@@ -37,7 +70,7 @@ def recherche_siret(field1, query1, field2, query2, field3, query3, field4, quer
 
   response = requests.request("GET", url, headers=headers, data=payload)
 
-
+  print(url)
   print(response.status_code)
   response = response.json()
   print(response['etablissements'][0]['uniteLegale']['denominationUniteLegale'])
@@ -51,4 +84,4 @@ def recherche_siret(field1, query1, field2, query2, field3, query3, field4, quer
     adresse_etablissement["codePostalEtablissement"],
     adresse_etablissement["libelleCommuneEtablissement"])
 
-recherche_siret(champ1, recherche1, champ2, recherche2, champ3, recherche3, champ4, recherche4)
+recherche_siret(recherche)
