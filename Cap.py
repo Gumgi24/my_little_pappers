@@ -5,6 +5,7 @@ NOM = ""
 VILLE = ""
 CTI = ""
 
+# Cette boucle permets de garder le menu de selection de recherche
 while True:
   print("\n=== Menu de Recherche ===")
   print("1. Entrer SIRET (actuel : )")
@@ -33,6 +34,7 @@ while True:
   else:
     print("Choix invalide, CONNARD.")
 
+# Cette fonction construit la recherche finale écrite dans l'URL
 def construction_query(siret, nom, ville, catégorie):
   query = ""
   
@@ -58,6 +60,7 @@ def construction_query(siret, nom, ville, catégorie):
 
 recherche = construction_query(SIRET, NOM, VILLE, CTI)
 
+# C'est cette fonction qui permet d'effectuer la recherche et de l'afficher 
 def recherche_siret(query):
   url = "https://api.insee.fr/api-sirene/3.11/siret?q=" + query #49516065700062 = Exemple Lexfo
   
